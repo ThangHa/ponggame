@@ -196,7 +196,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			g.drawString("Pong Game", 130, 100);
 
 			// FIXME Wellcome message below show smaller than game title
-			g.drawString("Press 'P' to play.", 115, 400);
+			g.drawString("Press 'P' to play.", 115, 400); // sữa số để p to play nằm ở giữa
 		} else if (playing) {
 
 			/* Game is playing */
@@ -241,9 +241,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				g.drawString("Player 1 Wins!", 150, 200);
+				g.drawString("Player 1 Wins!", 150, 200); // sữa số để chử play 1 win nằm ở giữa
 			} else {
-				g.drawString("Player 2 Wins!", 150, 200);
+				g.drawString("Player 2 Wins!", 150, 200); // sữa số để chử play 2 win nằm ở giữa
 			}
 
 			// Draw Restart message
