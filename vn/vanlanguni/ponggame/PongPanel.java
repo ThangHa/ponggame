@@ -66,7 +66,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerTwoX = 465;
 	private int playerTwoY = 250;
 	private int playerTwoWidth = 10;
-	private int playerTwoHeight = 60;
+	private int playerTwoHeight = 50; // sua 60 thanh 50
 
 	/** Speed of the paddle - How fast the paddle move. */
 	private int paddleSpeed = 5;
