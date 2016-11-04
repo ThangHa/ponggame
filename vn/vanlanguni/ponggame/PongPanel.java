@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PONG GAME REQUIREMENTS
  * This simple "tennis like" game features two paddles and a ball, 
  * the goal is to defeat your opponent by being the first one to gain 3 point,
@@ -72,8 +72,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int paddleSpeed = 5;
 
 	/** Player score, show on upper left and right. */
-	private int playerOneScore;
-	private int playerTwoScore;
+	private int playerOneScore=0;//them 0
+	private int playerTwoScore=0;// them 0
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
