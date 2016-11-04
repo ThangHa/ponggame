@@ -1,21 +1,5 @@
-/*
- * PONG GAME REQUIREMENTS
- * This simple "tennis like" game features two paddles and a ball, 
- * the goal is to defeat your opponent by being the first one to gain 3 point,
- *  a player gets a point once the opponent misses a ball. 
- *  The game can be played with two human players, one on the left and one on 
- *  the right. They use keyboard to start/restart game and control the paddles. 
- *  The ball and two paddles should be red and separating lines should be green. 
- *  Players score should be blue and background should be black.
- *  Keyboard requirements:
- *  + P key: start
- *  + Space key: restart
- *  + W/S key: move paddle up/down
- *  + Up/Down key: move paddle up/down
- *  
- *  Version: 0.5
- */
-package vn.vanlanguni.ponggame;
+package ponggame;
+
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,39 +12,36 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/**
- * 
- * @author Invisible Man
- *
- */
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener      {
 	private static final long serialVersionUID = -1097341635155021546L;
 
 	private boolean showTitleScreen = true;
-	private boolean playing;
-	private boolean gameOver;
+	private boolean playing = false;
+	private boolean gameOver = false;
 
 	/** Background. */
 	private Color backgroundColor = Color.BLACK;
 
 	/** State on the control keys. */
-	private boolean upPressed;
-	private boolean downPressed;
-	private boolean wPressed;
-	private boolean sPressed;
+	private boolean upPressed = false; // thêm các boolean = false
+	private boolean downPressed = false;
+	private boolean wPressed = false;
+	private boolean sPressed = false;
+	//ms
+	//private boolean leftPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 200;
-	private int ballY = 200;
+	private int ballX = 200; 
+	private int ballY = 200; 
 	private int diameter = 20;
-	private int ballDeltaX = -1;
+	private int ballDeltaX = -1; // sửa 1 thành -1 
 	private int ballDeltaY = 3;
 
 	/** Player 1's paddle: position and size */
-	private int playerOneX = 0;
-	private int playerOneY = 250;
-	private int playerOneWidth = 10;
-	private int playerOneHeight = 50;
+	private int playerOneX = 25; // sửa toa do
+	private int playerOneY = 250; // toa do
+	private int playerOneWidth = 10;	//chieu ngang cua vach do
+	private int playerOneHeight = 60; //chieu dai vach do
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 465;
@@ -69,11 +50,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerTwoHeight = 60;
 
 	/** Speed of the paddle - How fast the paddle move. */
-	private int paddleSpeed = 5;
-
+	private int paddleSpeed = 5;  // gioi han vach do di chuyen
+	
 	/** Player score, show on upper left and right. */
-	private int playerOneScore;
-	private int playerTwoScore;
+	private int playerOneScore = 0; // thêm =0
+	private int playerTwoScore = 0; // thêm =0
 
 	/** Construct a PongPanel. */
 	public PongPanel() {
@@ -84,7 +65,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		addKeyListener(this);
 
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);
+		Timer timer = new Timer(1000 / 100, this);
 		timer.start();
 	}
 
@@ -102,7 +83,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// move player 1
 			// Move up if after moving, paddle is not outside the screen
-			if (upPressed && playerOneY - paddleSpeed > 0) {
+			if (upPressed && playerOneY - paddleSpeed > 0 ) { 
 				playerOneY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
@@ -119,6 +100,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			if (sPressed && playerTwoY + playerTwoHeight + paddleSpeed < getHeight()) {
 				playerTwoY += paddleSpeed;
 			}
+		
+			
 
 			/*
 			 * where will the ball be after it moves? calculate 4 corners: Left,
@@ -128,22 +111,22 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallLeft = ballX + ballDeltaX;
 			int nextBallRight = ballX + diameter + ballDeltaX;
 			// FIXME Something not quite right here
-			int nextBallTop = ballY;
-			int nextBallBottom = ballY + diameter;
+			int nextBallTop = ballY + ballDeltaY;  // thêm deltaY
+			int nextBallBottom = ballY + diameter + ballDeltaY ; // thêm deltaY
 
 			// Player 1's paddle position
 			int playerOneRight = playerOneX + playerOneWidth;
 			int playerOneTop = playerOneY;
-			int playerOneBottom = playerOneY + playerOneHeight;
+			int playerOneBottom = playerOneY + playerOneHeight; 
 
 			// Player 2's paddle position
-			float playerTwoLeft = playerTwoX;
+			float playerTwoLeft = playerTwoX ;//- playerOneWidth;
 			float playerTwoTop = playerTwoY;
-			float playerTwoBottom = playerTwoY + playerTwoHeight;
+			float playerTwoBottom = playerTwoY + playerTwoHeight;   
 
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
-				ballDeltaY *= -1;
+				ballDeltaY *= -1; 
 			}
 
 			// will the ball go off the left side?
@@ -151,7 +134,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				// is it going to miss the paddle?
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
 
-					playerOneScore++;
+					playerTwoScore ++; // sửa playeronescore thanh playertwiscore
 
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
@@ -163,7 +146,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				} else {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
-					ballDeltaX *= 1;
+					ballDeltaX *= -1; // sửa 1 thành -1 
 				}
 			}
 
@@ -185,7 +168,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
-					ballDeltaX *= 1;
+					///////////////////////////////
+					ballDeltaX *= -1; // sửa 1 bằng trừ 1
 				}
 			}
 
@@ -212,7 +196,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString("Pong Game", 130, 100);
 
 			// FIXME Wellcome message below show smaller than game title
-			g.drawString("Press 'P' to play.", 175, 400);
+			g.drawString("Press 'P' to play.", 115, 400);
 		} else if (playing) {
 
 			/* Game is playing */
@@ -234,7 +218,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100); // Player 1
 																	// score
-			g.drawString(String.valueOf(playerOneScore), 400, 100); // Player 2
+			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
 
 			// draw the ball
@@ -257,13 +241,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				g.drawString("Player 1 Wins!", 165, 200);
+				g.drawString("Player 1 Wins!", 150, 200);
 			} else {
-				g.drawString("Player 2 Wins!", 165, 200);
+				g.drawString("Player 2 Wins!", 150, 200);
 			}
 
 			// Draw Restart message
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+			g.drawString(" Press space to restart ", 150, 400); // code để game play again
 			// TODO Draw a restart message
 		}
 	}
@@ -294,6 +279,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			playerTwoY = 250;
 			ballX = 250;
 			ballY = 250;
+			//playerOneScore = 0;
+			//playerTwoScore = 0;
 		}
 	}
 
@@ -305,7 +292,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_W) {
 			wPressed = false;
 		} else if (e.getKeyCode() == KeyEvent.VK_S) {
-			wPressed = false;
+			sPressed = false; // sửa wPressed thành sPressed			
 		}
 	}
 
