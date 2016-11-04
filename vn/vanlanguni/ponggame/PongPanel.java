@@ -38,10 +38,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	private int ballDeltaY = 3;
 
 	/** Player 1's paddle: position and size */
+<<<<<<< HEAD
 	private int playerOneX = 25; // sửa toa do
 	private int playerOneY = 250; // toa do
 	private int playerOneWidth = 10;	//chieu ngang cua vach do
 	private int playerOneHeight = 60; //chieu dai vach do
+=======
+	private int playerOneX = 25;
+	private int playerOneY = 250;
+	private int playerOneWidth = 10;
+	private int playerOneHeight = 50;
+>>>>>>> d0a3d9c765e60e961c1ce88306022b81e5eee1dd
 
 	/** Player 2's paddle: position and size */
 	private int playerTwoX = 465;
@@ -134,7 +141,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 				// is it going to miss the paddle?
 				if (nextBallTop > playerOneBottom || nextBallBottom < playerOneTop) {
 
+<<<<<<< HEAD
 					playerTwoScore ++; // sửa playeronescore thanh playertwiscore
+=======
+					playerTwoScore++; // doi playoneScore thanh playerTwoScore
+>>>>>>> d0a3d9c765e60e961c1ce88306022b81e5eee1dd
 
 					// Player 2 Win, restart the game
 					if (playerTwoScore == 3) {
