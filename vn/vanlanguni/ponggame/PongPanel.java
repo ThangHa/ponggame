@@ -180,7 +180,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						gameOver = true;
 					}
 					ballX = 200;
-					ballY = 200;
+					ballY = 199;
 				} else {
 
 					// If the ball hitting the paddle, it will bounce back
