@@ -21,7 +21,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	//
 	//public static final String smangePath = "D:/adp/hinh.JPG";
 	//public JLabel contenBackground;
-	ImageIcon imgBackground, imgBackgroundplay, imgBall, imgGameOver;
+	ImageIcon imgBackground, imgBackgroundplay, imgBall, imgGameOver,imgButton;
 	//
 	
 	private boolean showTitleScreen = true;
@@ -74,7 +74,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 		imgBackground = new ImageIcon("hinh/hinh1.jpg");
 		imgBackgroundplay = new ImageIcon("hinh/Background1.jpg");
 		imgBall = new ImageIcon("hinh/ball.png");
-		imgGameOver = new ImageIcon("hinh/Background2.jpg");
+		imgGameOver = new ImageIcon("hinh/hinh_nen_2.jpg");
+		imgButton = new ImageIcon("hinh/button.png");
 		////////////////////////////////////////////////////////////
 		// listen to key presses
 		setFocusable(true);
@@ -256,10 +257,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			//g.drawImage(ballX, ballY, diameter, diameter);
 
 			// draw the paddles
+			g.drawImage(imgButton.getImage(), playerOneX, playerOneY, playerOneWidth, playerOneHeight, null);
+			g.drawImage(imgButton.getImage(), playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, null);
+			/*
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
+			*/
 		} else if (gameOver) {
 			// Background
+			
 			g.setColor(Color.RED);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));
 			g.drawImage(imgGameOver.getImage(), 0, 0, 500, 500, null);
