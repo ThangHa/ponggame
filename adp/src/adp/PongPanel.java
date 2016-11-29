@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 import java.awt.Component;
 
 public class PongPanel extends JPanel implements ActionListener, KeyListener      {
@@ -62,7 +63,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	/** Player score, show on upper left and right. */
 	private int playerOneScore = 0; // thêm =0
 	private int playerTwoScore = 0; // thêm =0
-	
+	//ve ngau nhien mot hinh
+	private int ToDisplay;
+	private boolean showRandom;
+	private int xRanBall;   // toa do ngau nhien
 	///
 	
 
@@ -83,7 +87,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 		addKeyListener(this);
 
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 100, this);   // 60 -> 100
+		Timer timer = new Timer(1000 / 60, this);   // 60 -> 100
 		timer.start();
 		
 	}
@@ -103,16 +107,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			// move player 1
 			// Move up if after moving, paddle is not outside the screen
 			if (wPressed && playerOneY - paddleSpeed > 0 ) { 
+				
 				playerOneY -= paddleSpeed;
+				
 			}
 			// Move down if after moving paddle is not outside the screen
 			if (sPressed && playerOneY + playerOneHeight + paddleSpeed < getHeight()) {
+				
 				playerOneY += paddleSpeed;
+				
 			}
 
 			// move player 2
 			// Move up if after moving paddle is not outside the screen
 			if (upPressed && playerTwoY - paddleSpeed > 0) {
+				
 				playerTwoY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
@@ -144,6 +153,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			// ball bounces off top and bottom of screen
 			if (nextBallTop < 0 || nextBallBottom > getHeight()) {
 				ballDeltaY *= -1; // qua bong bat lai   -3
+				Sound.play("Sound/sound.wav");
 			}
 
 			// will the ball go off the left side?
@@ -164,6 +174,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1; // sửa 1 thành -1 nghich dao giá trị denta x
+					//Sound 
+					Sound.play("Sound/sound.wav");
 				}
 			}
 
@@ -187,12 +199,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 					// FIXME Something wrong here
 					///////////////////////////////
 					ballDeltaX *= -1; // sửa 1 bằng trừ 1
+					//Sound 
+					Sound.play("Sound/sound.wav");
 				}
 			}
 
 			// move the ball
 			ballX += ballDeltaX;
 			ballY += ballDeltaY;
+			
+			//show random
+			
 		}
 
 		// stuff has moved, tell this JPanel to repaint itself
@@ -228,8 +245,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			///////////////////////////////////////////////////////////////////////////////////////
 			// set the coordinate limit
 			int playerOneRight = playerOneX + playerOneWidth;
+			
 			int playerTwoLeft = playerTwoX;
-
+			
 			// draw dashed line down center
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {  // net dut
 				g.drawLine(250, lineY, 250, lineY + 25);
@@ -263,6 +281,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
 			*/
+			
+			//show random
 		} else if (gameOver) {
 			// Background
 			
