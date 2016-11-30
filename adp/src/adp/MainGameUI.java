@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 
 /**
- * @author tieu my
+ * @author Hoa Tran
  *
  */
 public class MainGameUI extends JFrame {
