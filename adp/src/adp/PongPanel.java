@@ -63,6 +63,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	/** Player score, show on upper left and right. */
 	private int playerOneScore = 0; // thêm =0
 	private int playerTwoScore = 0; // thêm =0
+	
+	// set player name
+	static String sPlayerName1 = "player 1";
+	static String sPlayerName2 = "player 2";
+	
+	
 	//ve ngau nhien mot hinh
 	private int ToDisplay;
 	private boolean showRandom;
@@ -236,6 +242,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			// FIXME Welcome message below show smaller than game title
 			g.setColor(Color.WHITE);
 			g.drawString("Press 'P' to play.", 100, 60);    //// chỉnh lại cho ngay
+			g.drawString("Press 'D' to name.", 150, 450);
+			g.drawString(sPlayerName1, 15, 40);
+			g.drawString(sPlayerName2, 250, 40);
 		} else if (playing) {
 
 			/* Game is playing */
@@ -281,6 +290,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
 			*/
+			g.drawString(sPlayerName1, 15, 40);
+			g.drawString(sPlayerName2, 250, 40);
 			
 			//show random
 		} else if (gameOver) {
@@ -305,9 +316,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			if (playerOneScore > playerTwoScore) {
 				g.setColor(Color.WHITE);
 				g.drawString("Player 1 Wins!", 130, 200);
+				g.drawString(sPlayerName1+"Wins!", 130, 200);
 			} else {
 				g.setColor(Color.WHITE);
 				g.drawString("Player 2 Wins!", 130, 200);
+				g.drawString(sPlayerName2 +"Wins!", 130, 200);
 			}
 
 			// Draw Restart message
@@ -326,6 +339,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			if (e.getKeyChar() == 'p'|| e.getKeyChar() == 'P') {    //////// thêm || P
 				showTitleScreen = false;
 				playing = true;
+			}
+			if(e.getKeyCode() == 'D'){
+				NamePlayer mainW = new NamePlayer();
+				mainW.setVisible(true);
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
