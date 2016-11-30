@@ -22,7 +22,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	//
 	//public static final String smangePath = "D:/adp/hinh.JPG";
 	//public JLabel contenBackground;
-	ImageIcon imgBackground, imgBackgroundplay, imgBall, imgGameOver,imgButton;
+	ImageIcon imgBackground,imgBackground2, imgBackgroundplay, imgBall, imgGameOver,imgButton;
 	//
 	
 	private boolean showTitleScreen = true;
@@ -63,12 +63,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 	/** Player score, show on upper left and right. */
 	private int playerOneScore = 0; // thêm =0
 	private int playerTwoScore = 0; // thêm =0
-	
+	//
+	String name;
 	// set player name
 	static String sPlayerName1 = "player 1";
 	static String sPlayerName2 = "player 2";
 	
-	
+	public void setName(String name1,String name2){
+		sPlayerName1 = name1;
+		sPlayerName2 = name2;
+	}
 	//ve ngau nhien mot hinh
 	private int ToDisplay;
 	private boolean showRandom;
@@ -81,11 +85,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 		setBackground(backgroundColor);
 		///////////////////////////////////////////////////////////////////////////
 		//this.contenBackground = new JLabel(new ImageIcon(getClass().getResource(name)))
-		imgBackground = new ImageIcon("hinh/hinh1.jpg");
+		imgBackground = new ImageIcon("hinh/Background1.jpg");
+		imgBackground2 = new ImageIcon("hinh/Background3.gif");
 		imgBackgroundplay = new ImageIcon("hinh/Background1.jpg");
-		imgBall = new ImageIcon("hinh/ball.png");
+		imgBall = new ImageIcon("hinh/ball2.gif");
 		imgGameOver = new ImageIcon("hinh/hinh_nen_2.jpg");
 		imgButton = new ImageIcon("hinh/button.png");
+		
 		////////////////////////////////////////////////////////////
 		// listen to key presses
 		setFocusable(true);
@@ -93,11 +99,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 		addKeyListener(this);
 
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);   // 60 -> 100
+		Timer timer = new Timer(1000 / 100, this);   // 60 -> 100
 		timer.start();
 		
 	}
-
+ 
 	/** Implement actionPerformed */
 	public void actionPerformed(ActionEvent e) {
 		step();
@@ -228,25 +234,27 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 		super.paintComponent(g);
 
 		if (showTitleScreen) {
+			Timer timer1 = new Timer(1000 / 100, this); 
 			////////////////////////////////////////////////////////////
 			//Background
 			g.drawImage(imgBackground.getImage(), 0, 0, 500, 500, null);
+			g.drawImage(imgBackground2.getImage(), 0, 300, 500, 200, null);
 			////////////////////////////////////////////////////////////
 			/* Show welcome screen */
-
+			
 			// Draw game title and start message
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.setColor(Color.WHITE);
-			g.drawString("Pong Game", 150, 200);
+			g.setColor(Color.red);
+			g.drawString("Pong Game", 150, 140);
 
 			// FIXME Welcome message below show smaller than game title
 			g.setColor(Color.WHITE);
-			g.drawString("Press 'P' to play.", 100, 60);    //// chỉnh lại cho ngay
-			g.drawString("Press 'D' to name.", 150, 450);
-			g.drawString(sPlayerName1, 15, 40);
-			g.drawString(sPlayerName2, 250, 40);
+			g.drawString("Press 'P' to play.", 100, 260);    //// chỉnh lại cho ngay
+			g.drawString("Press 'D' to name.", 100, 290);
+			//g.drawString(sPlayerName1, 15, 40);
+			//g.drawString(sPlayerName2, 250, 40);
 		} else if (playing) {
-
+			
 			/* Game is playing */
 			////////////////////////////////////////////////////////////////////////////////////
 			//Background - play
@@ -290,8 +298,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
 			*/
-			g.drawString(sPlayerName1, 15, 40);
-			g.drawString(sPlayerName2, 250, 40);
+			g.drawString(sPlayerName1, 40, 40);
+			g.drawString(sPlayerName2, 300, 40);
 			
 			//show random
 		} else if (gameOver) {
@@ -315,11 +323,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
 				g.setColor(Color.WHITE);
-				g.drawString("Player 1 Wins!", 130, 200);
+				// g.drawString("Player 1 Wins!", 130, 200);
 				g.drawString(sPlayerName1+"Wins!", 130, 200);
 			} else {
 				g.setColor(Color.WHITE);
-				g.drawString("Player 2 Wins!", 130, 200);
+				//g.drawString("Player 2 Wins!", 130, 200);
 				g.drawString(sPlayerName2 +"Wins!", 130, 200);
 			}
 
@@ -336,6 +344,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
+			Sound.play("Sound/sound4.wav");
 			if (e.getKeyChar() == 'p'|| e.getKeyChar() == 'P') {    //////// thêm || P
 				showTitleScreen = false;
 				playing = true;
@@ -362,8 +371,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener    
 			ballX = 250;
 			ballY = 250;
 			////////////////////// reset điểm  
-			//playerOneScore = 0;
-			//playerTwoScore = 0;
+			playerOneScore = 0;
+			playerTwoScore = 0;
 		}
 	}
 
